@@ -3,7 +3,7 @@ Version:	0.4
 Release:	%mkrel 5
 Summary:	Mobile IPv6 (MIPv6) Daemon
 
-Group:		System Environment/Daemons
+Group:		System/Servers
 License:	GPLv2
 URL:		http://www.linux-ipv6.org/memo/mipv6/
 Source0:	ftp://ftp.linux-ipv6.org/pub/usagi/patch/mipv6/umip-%{version}/daemon/tarball/mipv6-daemon-umip-%{version}.tar.gz
