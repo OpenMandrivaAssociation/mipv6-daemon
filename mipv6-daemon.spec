@@ -1,6 +1,6 @@
 Name:		mipv6-daemon
 Version:	0.4
-Release:	%mkrel 4
+Release:	%mkrel 5
 Summary:	Mobile IPv6 (MIPv6) Daemon
 
 Group:		System Environment/Daemons
@@ -80,3 +80,4 @@ fi
 %files devel
 %{_includedir}/netinet/*.h
 
+%changelog
