@@ -21,7 +21,7 @@ The mobile IPv6 daemon allows nodes to remain
 reachable while moving around in the IPv6 Internet.
 
 %package devel
-Group:	System Environment/Libraries
+Group:	Development/Other
 Summary:	Mobile IPv6 (MIPv6) header files
 
 %description devel
