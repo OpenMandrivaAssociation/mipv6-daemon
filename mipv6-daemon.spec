@@ -1,6 +1,6 @@
 Name:		mipv6-daemon
 Version:	0.4
-Release:	%mkrel 6
+Release:	%mkrel 7
 Summary:	Mobile IPv6 (MIPv6) Daemon
 
 Group:		System/Servers
