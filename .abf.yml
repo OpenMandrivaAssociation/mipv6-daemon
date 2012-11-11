@@ -1,0 +1,5 @@
+sources:
+  "mip6d.conf:"	2bb37024538caac6a2c07495d5751604271751fc
+  "mip6d.init:"	ec02ba82643ad84968cdbce10c94c0ead1a9d933
+  "mip6d.sysconfig:"	06d476f82a9b3730f2c5664eb706fff5e894b797
+  "mipv6-daemon-umip-0.4.tar.gz:"	8cf6d21a0a14b78c91d17c54875c254521ac5ce0
