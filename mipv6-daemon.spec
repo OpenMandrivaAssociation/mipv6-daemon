@@ -1,6 +1,6 @@
 Name:		mipv6-daemon
 Version:	0.4
-Release:	%mkrel 7
+Release:	%mkrel 6
 Summary:	Mobile IPv6 (MIPv6) Daemon
 
 Group:		System/Servers
@@ -80,4 +80,18 @@ fi
 %files devel
 %{_includedir}/netinet/*.h
 
+
+
 %changelog
+* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 0.4-6mdv2011.0
++ Revision: 612871
+- the mass rebuild of 2010.1 packages
+
+* Mon Feb 22 2010 Antoine Ginies <aginies@mandriva.com> 0.4-5mdv2010.1
++ Revision: 509533
+- change group for devel package
+- change the group
+- spec file based on fedora one
+- import mipv6-daemon
+
+
