@@ -1,20 +1,22 @@
 Name:		mipv6-daemon
 Version:	0.4
-Release:	%mkrel 6
+Release:	8
 Summary:	Mobile IPv6 (MIPv6) Daemon
-
 Group:		System/Servers
 License:	GPLv2
 URL:		http://www.linux-ipv6.org/memo/mipv6/
 Source0:	ftp://ftp.linux-ipv6.org/pub/usagi/patch/mipv6/umip-%{version}/daemon/tarball/mipv6-daemon-umip-%{version}.tar.gz
-Source1:	mip6d.init
+Source1:	mip6d.service
 Source2:	mip6d.sysconfig
 Source3:	mip6d.conf
 Patch0:		mipv6-daemon-header-fix.patch
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-
-BuildRequires:	flex bison indent
-Requires:	initscripts, chkconfig
+BuildRequires: systemd
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
+BuildRequires:	flex
+BuildRequires:	bison
+BuildRequires:	indent
 
 %description
 The mobile IPv6 daemon allows nodes to remain
@@ -33,43 +35,32 @@ Mobile IPv6 (MIPv6) header files
 
 %build
 %configure
-make %{?_smp_mflags}
+%make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%makeinstall_std
 
-install -d $RPM_BUILD_ROOT%{_initrddir}
-install -m755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/mip6d
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/mip6d
-install -m644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/mip6d.conf
+install -d %{buildroot}%{_unitdir}
+install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_unitdir}/mip6d.service
+install -d %{buildroot}%{_sysconfdir}/sysconfig
+install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/mip6d
+install -m644 %{SOURCE3} %{buildroot}%{_sysconfdir}/mip6d.conf
 
-mkdir -p $RPM_BUILD_ROOT%{_includedir}/netinet
-cp -av include/netinet/ip6mh.h $RPM_BUILD_ROOT%{_includedir}/netinet/
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+mkdir -p %{buildroot}%{_includedir}/netinet
+cp -av include/netinet/ip6mh.h %{buildroot}%{_includedir}/netinet/
 
 %preun
-if [ "$1" = 0 ]
-then
-	/sbin/service mip6d stop > /dev/null 2>&1 ||:
-	/sbin/chkconfig --del mip6d
-fi
+%systemd_preun mip6d.service
 
 %post
-/sbin/chkconfig --add mip6d
+%systemd_post mip6d.service
 
 %postun
-if [ "$1" -ge "1" ]; then
-	/sbin/service mip6d condrestart > /dev/null 2>&1 ||:
-fi
+%systemd_postun_with_restart mip6d.service
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS BUGS COPYING NEWS README README.IPsec THANKS extras
-%{_initrddir}/mip6d
+%{_unitdir}/mip6d.service
 %config(noreplace) %{_sysconfdir}/sysconfig/mip6d
 %config(noreplace) %{_sysconfdir}/mip6d.conf
 %{_sbindir}/*
@@ -79,19 +70,3 @@ fi
 
 %files devel
 %{_includedir}/netinet/*.h
-
-
-
-%changelog
-* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 0.4-6mdv2011.0
-+ Revision: 612871
-- the mass rebuild of 2010.1 packages
-
-* Mon Feb 22 2010 Antoine Ginies <aginies@mandriva.com> 0.4-5mdv2010.1
-+ Revision: 509533
-- change group for devel package
-- change the group
-- spec file based on fedora one
-- import mipv6-daemon
-
-
