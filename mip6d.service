@@ -4,14 +4,10 @@ Description=Start script for the Mobile IPv6 daemon
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/echo -n "Starting mip6d: "
-ExecStart=daemon /usr/sbin/mip6d
-ExecStart=/bin/echo
+ExecStart=/usr/sbin/mip6d &
 ExecStart=/bin/touch /var/lock/subsys/mip6d
 
-ExecStop=/bin/echo -n "Stopping mip6d: "
 ExecStop=/bin/killproc -d 10 /usr/sbin/mip6d
-ExecStop=/bin/echo
 ExecStop=/bin/rm -f /var/lock/subsys/mip6d
 
 [Install]
