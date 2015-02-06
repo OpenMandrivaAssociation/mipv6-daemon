@@ -1,6 +1,6 @@
 Name:		mipv6-daemon
 Version:	0.4
-Release:	9
+Release:	10
 Summary:	Mobile IPv6 (MIPv6) Daemon
 Group:		System/Servers
 License:	GPLv2
