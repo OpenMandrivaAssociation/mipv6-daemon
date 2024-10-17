@@ -4,7 +4,7 @@ Release:	10
 Summary:	Mobile IPv6 (MIPv6) Daemon
 Group:		System/Servers
 License:	GPLv2
-URL:		http://www.linux-ipv6.org/memo/mipv6/
+URL:		https://www.linux-ipv6.org/memo/mipv6/
 Source0:	ftp://ftp.linux-ipv6.org/pub/usagi/patch/mipv6/umip-%{version}/daemon/tarball/mipv6-daemon-umip-%{version}.tar.gz
 Source1:	mip6d.service
 Source2:	mip6d.sysconfig
